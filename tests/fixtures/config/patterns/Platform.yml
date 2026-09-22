@@ -1,0 +1,16 @@
+pattern: Platform
+config:
+  visibility:
+    type: enum
+    values: [public, private]
+    default: private
+  supports:
+    type: list
+    of: string
+    default: []
+  adminMenu:
+    type: string
+    nullable: true
+  weight:
+    type: int
+    default: 10

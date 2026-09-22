@@ -1,0 +1,2 @@
+entity: Enum
+storage: { table: reserved_enum }

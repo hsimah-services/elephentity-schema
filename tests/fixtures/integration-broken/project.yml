@@ -1,0 +1,6 @@
+project: T
+storage:
+  driver: wordpress
+integrations:
+  wpgraphql:
+  nonsense: {}
