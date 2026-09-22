@@ -1,0 +1,88 @@
+entity: Post
+description: A published article.
+use:
+  - Auditable
+  - WordPressPost
+configure:
+  WordPressPost:
+    visibility: public
+    supports: [title, editor]
+integrations:
+  wpgraphql:
+    singular: Post
+    plural: Posts
+storage:
+  table: phe_post
+  handle: post
+policies:
+  terminalRule:
+    read: allow
+fields:
+  slug:
+    type: string
+    description: Write-once, and chosen by whoever creates the post.
+    immutable: true
+    maxLength: 120
+  title:
+    type: string
+    required: true
+    indexed: true
+    maxLength: 200
+  price:
+    type: Money
+    nullable: true
+    verify: true
+  status:
+    type: enum
+    required: true
+    values: PostStatus
+  visibility:
+    type: enum
+    values: [public, private]
+  publishedAt:
+    type: datetime
+    description: When it went live. A plain datetime, set by whoever publishes it.
+    nullable: true
+edges:
+  comments:
+    to: Comment
+    cardinality: many
+    inverse: true
+  tags:
+    to: Tag
+    cardinality: many
+    inverse:
+      name: posts
+      unique: false
+queries:
+  published:
+    args:
+      limit: { type: int, nullable: true }
+    returns:
+      type: Post
+      cardinality: many
+    integrations:
+      wpgraphql:
+        field: publishedPosts
+    handler: true
+actions:
+  publish:
+    args:
+      at: { type: datetime, nullable: true }
+    writes:
+      fields: [status]
+      edges: [comments]
+    handler: true
+sideEffects:
+  reindex:
+    on: [create, update]
+    phase: postCommit
+    handler: true
+readPolicies:
+  reporter:
+    description: The person who raised it may always read it.
+    handler: true
+writePolicies:
+  noBackwards:
+    description: A post never returns to draft.
+    handler: true

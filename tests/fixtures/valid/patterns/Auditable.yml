@@ -1,0 +1,13 @@
+pattern: Auditable
+description: Writes an audit record after every commit.
+use:
+  - Timestamps
+sideEffects:
+  audit:
+    on: [create, update]
+    phase: postCommit
+    handler: true
+readPolicies:
+  owner:
+    handler: true
+interface: true

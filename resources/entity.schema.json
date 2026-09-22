@@ -1,0 +1,73 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://dev.hbla.ke/elephentity/v0/entity.schema.json",
+    "title": "Elephentity entity specification",
+    "type": "object",
+    "required": [
+        "entity",
+        "storage"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "entity": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/typeName"
+        },
+        "description": {
+            "type": "string",
+            "description": "One line. The real prose lives in the companion markdown file."
+        },
+        "use": {
+            "type": "array",
+            "items": {
+                "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/typeName"
+            },
+            "uniqueItems": true
+        },
+        "configure": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/configure"
+        },
+        "integrations": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/integrations"
+        },
+        "storage": {
+            "allOf": [
+                {
+                    "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/storage"
+                }
+            ],
+            "required": [
+                "table"
+            ]
+        },
+        "fields": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/fields"
+        },
+        "edges": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/edges"
+        },
+        "queries": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/queries"
+        },
+        "actions": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/actions"
+        },
+        "sideEffects": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/sideEffects"
+        },
+        "readPolicies": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/policies"
+        },
+        "writePolicies": {
+            "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/policies"
+        },
+        "policies": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "terminalRule": {
+                    "$ref": "https://dev.hbla.ke/elephentity/v0/common.schema.json#/$defs/terminalRule"
+                }
+            }
+        }
+    }
+}

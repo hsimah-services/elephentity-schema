@@ -1,0 +1,30 @@
+entity: Post
+storage:
+  table: phe_post
+  handle: ProductVariationSlugThatIsTooLong
+fields:
+  id: { type: int }
+  slug: { type: string, maxLength: 1000, unique: true }
+  body: { type: text, maxLength: 40 }
+  price: { type: Money }
+  status: { type: enum }
+  stampedAt: { type: datetime, required: true, immutable: true, managed: created }
+  counter: { type: int, managed: modified }
+edges:
+  comments:
+    to: Comment
+    cardinality: many
+    inverse: { unique: false }
+    required: true
+  ghosts:
+    to: Ghost
+    cardinality: one
+actions:
+  publish:
+    writes:
+      fields: [nonexistent, stampedAt]
+    handler: true
+queries:
+  find:
+    returns: { type: Ghost }
+    handler: true

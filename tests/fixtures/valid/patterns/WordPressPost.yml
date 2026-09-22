@@ -1,0 +1,22 @@
+pattern: WordPressPost
+description: Participation in the WordPress post ecosystem.
+requires:
+  driver: wordpress
+config:
+  visibility:
+    type: enum
+    values: [public, private]
+    default: private
+  supports:
+    type: list
+    of: string
+    default: []
+  adminMenu:
+    type: string
+    nullable: true
+fields:
+  postId:
+    type: int
+    nullable: true
+    unique: true
+    indexed: true

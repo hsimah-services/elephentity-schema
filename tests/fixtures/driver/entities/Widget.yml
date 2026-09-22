@@ -1,0 +1,3 @@
+entity: Widget
+use: [WordPressPost]
+storage: { table: phe_widget }

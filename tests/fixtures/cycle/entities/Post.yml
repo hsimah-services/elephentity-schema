@@ -1,0 +1,3 @@
+entity: Post
+use: [A]
+storage: { table: phe_post }
